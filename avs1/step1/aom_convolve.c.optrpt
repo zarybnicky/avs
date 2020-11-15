@@ -1,0 +1,518 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 19.1.1.217 Build 20200306
+
+Compiler options: -I/home/training/dd-20-28-209/aom/third_party/googletest/src/googletest/include -I/home/training/dd-20-28-209/aom/third_party/googletest/src/googletest -I/home/training/dd-20-28-209/aom -I/home/training/dd-20-28-209/aom-build -I/home/training/dd-20-28-209/aom/apps -I/home/training/dd-20-28-209/aom/common -I/home/training/dd-20-28-209/aom/examples -I/home/training/dd-20-28-209/aom/stats -I/home/training/dd-20-28-209/aom/third_party/libyuv/include -I/home/training/dd-20-28-209/aom/third_party/libwebm -march=native -O2 -g -DNDEBUG -std=c99 -Wall -Wdisabled-optimization -Wextra -Wfloat-conversion -Wimplicit-function-declaration -Wpointer-arith -Wshorten-64-to-32 -Wsign-compare -Wtype-limits -Wuninitialized -Wunused -Wvla -Wshadow -Wundef -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -qopt-report=4 -qoptreport-phase=vec,loop -o CMakeFiles/aom_dsp_common.dir/aom_dsp/aom_convolve.c.o -c
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: clip_pixel(int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (clip_pixel(int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h(64,43)
+
+===========================================================================
+
+Begin optimization report for: clamp(int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (clamp(int, int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h(68,55)
+
+===========================================================================
+
+Begin optimization report for: clip_pixel_highbd(int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (clip_pixel_highbd(int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h(80,59)
+
+===========================================================================
+
+Begin optimization report for: horz_scalar_product(const uint8_t *, const int16_t *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (horz_scalar_product(const uint8_t *, const int16_t *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(23,75)
+
+===========================================================================
+
+Begin optimization report for: vert_scalar_product(const uint8_t *, ptrdiff_t, const int16_t *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (vert_scalar_product(const uint8_t *, ptrdiff_t, const int16_t *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(30,57)
+
+===========================================================================
+
+Begin optimization report for: convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(39,57)
+
+===========================================================================
+
+Begin optimization report for: convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(58,56)
+
+===========================================================================
+
+Begin optimization report for: get_filter_base(const int16_t *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (get_filter_base(const int16_t *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(75,67)
+
+===========================================================================
+
+Begin optimization report for: get_filter_offset(const int16_t *, const InterpKernel *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (get_filter_offset(const int16_t *, const InterpKernel *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(80,74)
+
+===========================================================================
+
+Begin optimization report for: aom_convolve8_horiz_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_convolve8_horiz_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)) [10/19=52.6%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(88,35)
+  -> INLINE: (89,41) get_filter_base(const int16_t *) (isz = 2) (sz = 8)
+  -> INLINE: (90,21) get_filter_offset(const int16_t *, const InterpKernel *) (isz = 4) (sz = 12)
+  -> INLINE: (95,3) convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int) (isz = 70) (sz = 91)
+    -> INLINE (MANUAL): (46,23) horz_scalar_product(const uint8_t *, const int16_t *) (isz = 21) (sz = 30)
+    -> INLINE (MANUAL): (47,16) clip_pixel(int) (isz = 4) (sz = 11)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(41,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(95,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(43,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(95,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (25:41) and dst[x] (47:7)
+
+      LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(25,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(95,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(88,35):remark #34051: REGISTER ALLOCATION : [aom_convolve8_horiz_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:88
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
+        
+    Routine temporaries
+        Total         :      73
+            Global    :      27
+            Local     :      46
+        Regenerable   :       4
+        Spilled       :      16
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :     112 bytes*
+            Reads     :      14 [3.34e+00 ~ 3.3%]
+            Writes    :      14 [2.59e+00 ~ 2.6%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: aom_convolve8_vert_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_convolve8_vert_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)) [11/19=57.9%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(103,34)
+  -> INLINE: (104,41) get_filter_base(const int16_t *) (isz = 2) (sz = 8)
+  -> INLINE: (105,21) get_filter_offset(const int16_t *, const InterpKernel *) (isz = 4) (sz = 12)
+  -> INLINE: (110,3) convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int) (isz = 75) (sz = 96)
+    -> INLINE (MANUAL): (66,23) vert_scalar_product(const uint8_t *, ptrdiff_t, const int16_t *) (isz = 21) (sz = 32)
+    -> INLINE (MANUAL): (67,29) clip_pixel(int) (isz = 4) (sz = 11)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(61,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(110,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(63,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(110,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between y_filter[k] (32:41) and dst[y] (67:7)
+
+      LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(32,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(110,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(103,34):remark #34051: REGISTER ALLOCATION : [aom_convolve8_vert_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:103
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
+        
+    Routine temporaries
+        Total         :      79
+            Global    :      29
+            Local     :      50
+        Regenerable   :       6
+        Spilled       :      13
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      88 bytes*
+            Reads     :      11 [5.11e+00 ~ 5.1%]
+            Writes    :      11 [1.63e+00 ~ 1.6%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: aom_convolve_copy_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_convolve_copy_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int)) [12/19=63.2%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(117,61)
+  -> EXTERN: (126,5) memcpy(void *__restrict__, const void *__restrict__, size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(125,3)
+   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(126,5) ]
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(126,5):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(126,5):remark #34014: optimization advice for memcpy: increase the source's alignment to 16 (and use __assume_aligned) to speed up library implementation
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(126,5):remark #34026: call to memcpy implemented as a call to optimized library version
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(117,61):remark #34051: REGISTER ALLOCATION : [aom_convolve_copy_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:117
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   13[ rax rdx rcx rbx rbp rsi rdi r8-r9 r12-r15]
+        
+    Routine temporaries
+        Total         :      21
+            Global    :      12
+            Local     :       9
+        Regenerable   :       2
+        Spilled       :       6
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      48 bytes*
+            Reads     :       6 [5.82e+00 ~ 5.8%]
+            Writes    :       6 [5.82e+00 ~ 5.8%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: highbd_vert_scalar_product(const uint16_t *, ptrdiff_t, const int16_t *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (highbd_vert_scalar_product(const uint16_t *, ptrdiff_t, const int16_t *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(135,64)
+
+===========================================================================
+
+Begin optimization report for: highbd_horz_scalar_product(const uint16_t *, const int16_t *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (highbd_horz_scalar_product(const uint16_t *, const int16_t *)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(142,64)
+
+===========================================================================
+
+Begin optimization report for: highbd_convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (highbd_convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(151,72)
+
+===========================================================================
+
+Begin optimization report for: highbd_convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (highbd_convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int)) /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(172,71)
+
+===========================================================================
+
+Begin optimization report for: aom_highbd_convolve8_horiz_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_highbd_convolve8_horiz_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)) [17/19=89.5%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(195,50)
+  -> INLINE: (196,41) get_filter_base(const int16_t *) (isz = 2) (sz = 8)
+  -> INLINE: (197,21) get_filter_offset(const int16_t *, const InterpKernel *) (isz = 4) (sz = 12)
+  -> INLINE: (201,3) highbd_convolve_horiz(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int) (isz = 108) (sz = 131)
+    -> INLINE (MANUAL): (160,23) highbd_horz_scalar_product(const uint16_t *, const int16_t *) (isz = 22) (sz = 31)
+    -> INLINE (MANUAL): (161,16) clip_pixel_highbd(int, int) (isz = 29) (sz = 40)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(83,31) clamp(int, int, int) (isz = 2) (sz = 12)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(84,31) clamp(int, int, int) (isz = 2) (sz = 12)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(85,31) clamp(int, int, int) (isz = 2) (sz = 12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(155,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(201,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(157,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(201,3)
+   <Predicate Optimized v1>
+      remark #25422: Invariant Condition at line 81 hoisted out of this loop
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (144:41) and dst[x] (161:7)
+
+      LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(144,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(201,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(157,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(201,3)
+   <Predicate Optimized v3>
+      remark #25422: Invariant Condition at line 81 hoisted out of this loop
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (144:41) and dst[x] (161:7)
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(157,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(201,3)
+   <Predicate Optimized v4>
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (144:41) and dst[x] (161:7)
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(195,50):remark #34051: REGISTER ALLOCATION : [aom_highbd_convolve8_horiz_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:195
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
+        
+    Routine temporaries
+        Total         :     162
+            Global    :      27
+            Local     :     135
+        Regenerable   :       8
+        Spilled       :      10
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      72 bytes*
+            Reads     :      17 [2.98e+00 ~ 3.0%]
+            Writes    :      15 [1.14e+00 ~ 1.1%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: aom_highbd_convolve8_vert_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_highbd_convolve8_vert_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)) [18/19=94.7%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(209,49)
+  -> INLINE: (210,41) get_filter_base(const int16_t *) (isz = 2) (sz = 8)
+  -> INLINE: (211,21) get_filter_offset(const int16_t *, const InterpKernel *) (isz = 4) (sz = 12)
+  -> INLINE: (215,3) highbd_convolve_vert(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const InterpKernel *, int, int, int, int, int) (isz = 111) (sz = 134)
+    -> INLINE (MANUAL): (181,23) highbd_vert_scalar_product(const uint16_t *, ptrdiff_t, const int16_t *) (isz = 22) (sz = 33)
+    -> INLINE (MANUAL): (183,11) clip_pixel_highbd(int, int) (isz = 29) (sz = 40)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(83,31) clamp(int, int, int) (isz = 2) (sz = 12)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(84,31) clamp(int, int, int) (isz = 2) (sz = 12)
+      -> INLINE (MANUAL): /home/training/dd-20-28-209/aom/aom_dsp/aom_dsp_common.h:(85,31) clamp(int, int, int) (isz = 2) (sz = 12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(176,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(215,3)
+   remark #25101: Loop Interchange not done due to: Original Order seems proper
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(178,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(215,3)
+   <Predicate Optimized v1>
+      remark #25422: Invariant Condition at line 81 hoisted out of this loop
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between y_filter[k] (137:41) and dst[y*dst_stride] (182:7)
+
+      LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(137,3) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(215,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(178,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(215,3)
+   <Predicate Optimized v3>
+      remark #25422: Invariant Condition at line 81 hoisted out of this loop
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between y_filter[k] (137:41) and dst[y*dst_stride] (182:7)
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(178,5) inlined into /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(215,3)
+   <Predicate Optimized v4>
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between y_filter[k] (137:41) and dst[y*dst_stride] (182:7)
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(209,49):remark #34051: REGISTER ALLOCATION : [aom_highbd_convolve8_vert_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:209
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   15[ rax rdx rcx rbx rbp rsi rdi r8-r15]
+        
+    Routine temporaries
+        Total         :     172
+            Global    :      32
+            Local     :     140
+        Regenerable   :      10
+        Spilled       :      17
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :     112 bytes*
+            Reads     :      36 [9.56e+00 ~ 9.6%]
+            Writes    :      22 [1.37e+00 ~ 1.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: aom_highbd_convolve_copy_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (aom_highbd_convolve_copy_c(const uint8_t *, ptrdiff_t, uint8_t *, ptrdiff_t, const int16_t *, int, const int16_t *, int, int, int, int)) [19/19=100.0%] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(223,55)
+  -> EXTERN: (234,5) memcpy(void *__restrict__, const void *__restrict__, size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(233,3)
+   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(234,5) ]
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(234,5):remark #34014: optimization advice for memcpy: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(234,5):remark #34014: optimization advice for memcpy: increase the source's alignment to 16 (and use __assume_aligned) to speed up library implementation
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(234,5):remark #34026: call to memcpy implemented as a call to optimized library version
+/home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c(223,55):remark #34051: REGISTER ALLOCATION : [aom_highbd_convolve_copy_c] /home/training/dd-20-28-209/aom/aom_dsp/aom_convolve.c:223
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   13[ rax rdx rcx rbx rbp rsi rdi r8-r9 r12-r15]
+        
+    Routine temporaries
+        Total         :      24
+            Global    :      12
+            Local     :      12
+        Regenerable   :       1
+        Spilled       :       6
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      48 bytes*
+            Reads     :       6 [5.65e+00 ~ 5.7%]
+            Writes    :       6 [5.65e+00 ~ 5.7%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================

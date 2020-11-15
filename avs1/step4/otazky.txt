@@ -1,0 +1,13 @@
+1. ne pouze hlavní konvoluční cyklus se zvektorizoval. I některé inicializační i
+ukládací cykly by se daly zvektorizovat, ale podle reportů by byla taková
+transformace pouze na škodu (speedup < 1). V ukládacích cyklech existuje datová
+závislost (unsupported data type, vector dependence).
+
+2.
+park_joy původní čas 73s, po úpravách 60s
+rush_hour původní čas 201s, po úpravách 1099s
+Výpočetní uzel se zdá být nepoužívaný, musím tedy předpokládat, že úpravy
+výrazně zhoršily vlastnosti kodeku pro jiný než testovací vstup.
+
+3. Je možné se spolehnout na překladač, že použije správnou sadu instrukcí pro
+cílový procesor.

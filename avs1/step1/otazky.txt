@@ -1,0 +1,15 @@
+1. top 7 fcí
+Součet běhu top fcí = 23.94s
+Celkový běh programu = 72.68s
+Při teoretickém nekonečném urychlení top fcí:
+Nový celkový běh = 72.68 - 23.94 = 48.74
+Zrychlení = (nový - starý) / starý = - 32.93%
+
+2. praktické urychlení možná 20-25%
+
+3.
+unaligned access
+vector dependence
+stride unknown to compiler
+adjacent dense loads seem unprofitable to optimize
+

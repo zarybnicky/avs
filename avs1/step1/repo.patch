@@ -1,0 +1,18 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2ef0863..3325dc7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -173,6 +173,13 @@ list(APPEND AOM_WEBM_ENCODER_SOURCES "${AOM_ROOT}/common/webmenc.cc"
+ include_directories(${AOM_ROOT} ${AOM_CONFIG_DIR} ${AOM_ROOT}/apps
+                     ${AOM_ROOT}/common ${AOM_ROOT}/examples ${AOM_ROOT}/stats)
+ 
++SET_SOURCE_FILES_PROPERTIES(
++  "${AOM_ROOT}/aom_dsp/aom_convolve.c"
++  "${AOM_ROOT}/av1/common/convolve.c"
++  PROPERTIES
++  COMPILE_FLAGS "-qopt-report=4 -qoptreport-phase=vec,loop"
++)
++
+ # Targets
+ add_library(aom_version ${AOM_VERSION_SOURCES})
+ add_dummy_source_file_to_target(aom_version c)

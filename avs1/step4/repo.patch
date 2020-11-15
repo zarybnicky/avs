@@ -1,0 +1,177 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2ef0863..a67cde4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -173,6 +173,13 @@ list(APPEND AOM_WEBM_ENCODER_SOURCES "${AOM_ROOT}/common/webmenc.cc"
+ include_directories(${AOM_ROOT} ${AOM_CONFIG_DIR} ${AOM_ROOT}/apps
+                     ${AOM_ROOT}/common ${AOM_ROOT}/examples ${AOM_ROOT}/stats)
+ 
++SET_SOURCE_FILES_PROPERTIES(
++  "${AOM_ROOT}/aom_dsp/aom_convolve.c"
++  "${AOM_ROOT}/av1/common/convolve.c"
++  PROPERTIES
++  COMPILE_FLAGS "-qopenmp-simd -qopt-report=4 -qopt-report-phase=vec,loop"
++)
++
+ # Targets
+ add_library(aom_version ${AOM_VERSION_SOURCES})
+ add_dummy_source_file_to_target(aom_version c)
+diff --git a/aom_dsp/aom_convolve.c b/aom_dsp/aom_convolve.c
+index 7879b88..e6478bc 100644
+--- a/aom_dsp/aom_convolve.c
++++ b/aom_dsp/aom_convolve.c
+@@ -38,17 +38,33 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
+                            const InterpKernel *x_filters, int x0_q4,
+                            int x_step_q4, int w, int h) {
+   src -= SUBPEL_TAPS / 2 - 1;
+-  for (int y = 0; y < h; ++y) {
+-    int x_q4 = x0_q4;
+-    for (int x = 0; x < w; ++x) {
+-      const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
+-      const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
+-      const int sum = horz_scalar_product(src_x, x_filter);
+-      dst[x] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
+-      x_q4 += x_step_q4;
++  if (x_step_q4 == (1 << SUBPEL_BITS)) {
++    const int16_t *const x_filter = x_filters[x0_q4 % (SUBPEL_MASK + 1)];
++    for (int y = 0; y < h; ++y) {
++      int x_q4 = x0_q4 / (SUBPEL_MASK + 1);
++      #pragma omp simd
++      for (int x = 0; x < w; ++x) {
++        const uint8_t *const src_x = &src[x_q4 + x];
++        const int sum = horz_scalar_product(src_x, x_filter);
++        dst[x] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
++      }
++      src += src_stride;
++      dst += dst_stride;
++    }
++  } else {
++    #pragma omp simd
++    for (int y = 0; y < h; ++y) {
++      int x_q4 = x0_q4;
++      for (int x = 0; x < w; ++x) {
++        const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
++        const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
++        const int sum = horz_scalar_product(src_x, x_filter);
++        dst[x] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
++        x_q4 += x_step_q4;
++      }
++      src += src_stride;
++      dst += dst_stride;
+     }
+-    src += src_stride;
+-    dst += dst_stride;
+   }
+ }
+ 
+@@ -58,6 +74,7 @@ static void convolve_vert(const uint8_t *src, ptrdiff_t src_stride,
+                           int y_step_q4, int w, int h) {
+   src -= src_stride * (SUBPEL_TAPS / 2 - 1);
+ 
++  #pragma omp simd
+   for (int x = 0; x < w; ++x) {
+     int y_q4 = y0_q4;
+     for (int y = 0; y < h; ++y) {
+diff --git a/av1/common/convolve.c b/av1/common/convolve.c
+index e177e3c..15cd992 100644
+--- a/av1/common/convolve.c
++++ b/av1/common/convolve.c
+@@ -266,13 +266,21 @@ void av1_dist_wtd_convolve_2d_c(const uint8_t *src, int src_stride,
+       filter_params_x, subpel_x_qn & SUBPEL_MASK);
+   for (int y = 0; y < im_h; ++y) {
+     for (int x = 0; x < w; ++x) {
+-      int32_t sum = (1 << (bd + FILTER_BITS - 1));
+-      for (int k = 0; k < filter_params_x->taps; ++k) {
+-        sum += x_filter[k] * src_horiz[y * src_stride + x - fo_horiz + k];
++      im_block[y * im_stride + x] = 1 << (bd + FILTER_BITS - 1);
++    }
++  }
++  #pragma omp simd
++  for (int y = 0; y < im_h; ++y) {
++    for (int k = 0; k < filter_params_x->taps; ++k) {
++      for (int x = 0; x < w; ++x) {
++        im_block[y * im_stride + x] += x_filter[k] * src_horiz[y * src_stride + x - fo_horiz + k];
+       }
+-      assert(0 <= sum && sum < (1 << (bd + FILTER_BITS + 1)));
+-      im_block[y * im_stride + x] =
+-          (int16_t)ROUND_POWER_OF_TWO(sum, conv_params->round_0);
++    }
++  }
++  for (int y = 0; y < im_h; ++y) {
++    for (int x = 0; x < w; ++x) {
++      assert(0 <= im_block[y * im_stride + x] && im_block[y * im_stride + x] < (1 << (bd + FILTER_BITS + 1)));
++      im_block[y * im_stride + x] = (int16_t) ROUND_POWER_OF_TWO(im_block[y * im_stride + x], conv_params->round_0);
+     }
+   }
+ 
+@@ -281,28 +289,56 @@ void av1_dist_wtd_convolve_2d_c(const uint8_t *src, int src_stride,
+   const int16_t *y_filter = av1_get_interp_filter_subpel_kernel(
+       filter_params_y, subpel_y_qn & SUBPEL_MASK);
+   const int offset_bits = bd + 2 * FILTER_BITS - conv_params->round_0;
++
++  int16_t im_block_vert[(MAX_SB_SIZE + MAX_FILTER_TAP - 1) * MAX_SB_SIZE];
+   for (int y = 0; y < h; ++y) {
+     for (int x = 0; x < w; ++x) {
+-      int32_t sum = 1 << offset_bits;
+-      for (int k = 0; k < filter_params_y->taps; ++k) {
+-        sum += y_filter[k] * src_vert[(y - fo_vert + k) * im_stride + x];
++      im_block_vert[y * im_stride + x] = 1 << offset_bits;
++    }
++  }
++  #pragma omp simd
++  for (int y = 0; y < h; ++y) {
++    for (int k = 0; k < filter_params_y->taps; ++k) {
++      for (int x = 0; x < w; ++x) {
++        im_block_vert[y * im_stride + x] += y_filter[k] * src_vert[(y - fo_vert + k) * im_stride + x];
+       }
+-      assert(0 <= sum && sum < (1 << (offset_bits + 2)));
+-      CONV_BUF_TYPE res = ROUND_POWER_OF_TWO(sum, conv_params->round_1);
+-      if (conv_params->do_average) {
+-        int32_t tmp = dst16[y * dst16_stride + x];
+-        if (conv_params->use_dist_wtd_comp_avg) {
++    }
++  }
++  if (conv_params->do_average) {
++    if (conv_params->use_dist_wtd_comp_avg) {
++      for (int y = 0; y < h; ++y) {
++        for (int x = 0; x < w; ++x) {
++          assert(0 <= im_block_vert[y * im_stride + x] && im_block_vert[y * im_stride + x] < (1 << (offset_bits + 2)));
++          CONV_BUF_TYPE res = ROUND_POWER_OF_TWO(im_block_vert[y * im_stride + x], conv_params->round_1);
++          int32_t tmp = dst16[y * dst16_stride + x];
+           tmp = tmp * conv_params->fwd_offset + res * conv_params->bck_offset;
+           tmp = tmp >> DIST_PRECISION_BITS;
+-        } else {
++          tmp -= (1 << (offset_bits - conv_params->round_1)) +
++            (1 << (offset_bits - conv_params->round_1 - 1));
++          dst[y * dst_stride + x] =
++            clip_pixel(ROUND_POWER_OF_TWO(tmp, round_bits));
++        }
++      }
++    } else {
++      for (int y = 0; y < h; ++y) {
++        for (int x = 0; x < w; ++x) {
++          assert(0 <= im_block_vert[y * im_stride + x] && im_block_vert[y * im_stride + x] < (1 << (offset_bits + 2)));
++          CONV_BUF_TYPE res = ROUND_POWER_OF_TWO(im_block_vert[y * im_stride + x], conv_params->round_1);
++          int32_t tmp = dst16[y * dst16_stride + x];
+           tmp += res;
+           tmp = tmp >> 1;
+-        }
+-        tmp -= (1 << (offset_bits - conv_params->round_1)) +
+-               (1 << (offset_bits - conv_params->round_1 - 1));
+-        dst[y * dst_stride + x] =
++          tmp -= (1 << (offset_bits - conv_params->round_1)) +
++            (1 << (offset_bits - conv_params->round_1 - 1));
++          dst[y * dst_stride + x] =
+             clip_pixel(ROUND_POWER_OF_TWO(tmp, round_bits));
+-      } else {
++        }
++      }
++    }
++  } else {
++    for (int y = 0; y < h; ++y) {
++      for (int x = 0; x < w; ++x) {
++        assert(0 <= im_block_vert[y * im_stride + x] && im_block_vert[y * im_stride + x] < (1 << (offset_bits + 2)));
++        CONV_BUF_TYPE res = ROUND_POWER_OF_TWO(im_block_vert[y * im_stride + x], conv_params->round_1);
+         dst16[y * dst16_stride + x] = res;
+       }
+     }

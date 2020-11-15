@@ -1,0 +1,8 @@
+1. při překytí vektorizovaných dat může dojít k nechtěnému přepsání "filtru"
+výstupem dat z vektorových instrukcí
+
+2. zatímco ve směru x se pracuje se spojitými řádky matice, ve směru y je nutné
+načítat data pomocí střídy/stride, nelineárně
+
+3. vertikální konvoluci se podařilo urychlit, tam se prochází zdrojovým polem po
+datech navzájem sousedících v paměti
