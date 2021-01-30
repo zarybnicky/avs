@@ -1,0 +1,22 @@
+BUILDER_NAME;INPUT_FILE;OUTPUT_FILE;GRID_SIZE;ISO_LEVEL;FIELD_ELEMENTS;NUM_THREADS;ELAPSED_TIME;TOTAL_TRIANGLES;OUTPUT_SIZE
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;8;0.15;1889;24;4;552;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;16;0.15;1889;24;10;2384;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;32;0.15;1889;24;41;9780;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;64;0.15;1889;24;327;40288;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;128;0.15;1889;24;2404;163220;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;256;0.15;1889;24;19178;655500;
+OpenMP Loop;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;512;0.15;1889;24;153386;2628352;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;8;0.15;1889;24;2;76;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;16;0.15;1889;24;3;326;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;32;0.15;1889;24;4;1253;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;64;0.15;1889;24;19;5151;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;128;0.15;1889;24;118;20414;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;256;0.15;1889;24;878;82279;
+Octree;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;512;0.15;1889;24;6749;329311;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;8;0.15;1889;24;2;552;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;16;0.15;1889;24;3;2384;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;32;0.15;1889;24;15;9780;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;64;0.15;1889;24;102;40288;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;128;0.15;1889;24;708;163220;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;256;0.15;1889;24;5535;660308;
+Cached;/home/training/dd-20-28-209/avs2/scripts/../data/bun_zipper_res3.pts;;512;0.15;1889;24;42495;3601676;

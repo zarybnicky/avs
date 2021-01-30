@@ -1,0 +1,98 @@
+Architektury Výpočetních Systémů (AVS 2020)
+Projekt č. 2 (PMC)
+Login: xzaryb00
+
+Úloha 1: Paralelizace původního řešení
+===============================================================================
+
+1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje
+   neefektivitu paralelizaci té druhé?
+
+Vnější smyčku. U vnitřní smyčky "std::min" není atomizovatelná operace a
+synchronizace pomocí "omp critical" několikanásobně zpomalí běh programu.
+
+2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč?
+   Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
+
+Nechal jsem nakonec schedule(auto) - rozdíly ve době běhu byly zanedbatelné,
+ale nejlepší byly u "auto" a "guided, 16". Static a guided většinou běh
+zpomalily.
+
+"Chunk-size" odpovídá množství iterací, které vlákno dostane v okamžiku, kdy
+zpracovalo svou aktuální frontu/svůj chunk.
+
+3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+
+Vektor vektorů o délce "omp_get_num_threads()", konkatenovaný na konci
+"marchCubes". Kopírování dat mezi vektory sice chvíli trvá, ale když výsledek
+musí být ve tvaru "const Triangle_t *", nevidím jednodušší možnost.
+
+Označení mTriangles.push_back() jako "#pragma omp critical" sice funguje taky,
+ale kvůli nutnosti synchronizace je téměř 3x pomaleji.
+
+Úloha 2: Paralelní průchod stromem
+===============================================================================
+
+1) Stručně popište použití OpenMP tasků ve vašem řešení.
+
+"octreeStep" se volá v bloku "omp parallel single", pak každá z osmi pod-kostek
+je zpracovávaná ve strukturovaném bloku označeném jako "omp task
+shared(totalTriangles)" - odděleně, pouze s proměnnou totalTriangles explicitně
+označenou jako sdílenou.
+
+2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
+
+Přes návratové hodnoty jednotlivých kroků "octreeStep", uvnitř "octreeStep"
+pomocí proměnné označené jako "shared()"
+
+3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový
+   task pro každou krychli na nejnižší úrovni?
+
+Jako cut-off jsem použil 1, metodu buildCube je stejně potřeba volat s
+jednotkovou krychlí. Experimentálně jsem ale došel k tomu, že nejrychlejší je
+vytvořit speciální případ pro délku krychle 1, která volá "buildCube" sekvenčně
+a už bez rekurze.
+
+4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+
+Pomocí označení mTriangles.push_back jako "#pragma omp critical"
+
+Úloha 3: Předvýpočet hodnot pole
+===============================================================================
+
+1) Dochází v případě tohoto řešení k omezení výkonu propustností paměti?
+   Došlo k nějakým změnám ve využití paměťového subsystému v porovnání
+   s úlohou 1?
+   (Ověřte nástrojem Intel VTune na některé z větších mřížek -- např. 512)
+
+Ano, loop je ze 3% "memory-bound", kdežto cached je 17.6%.
+
+2) V jaké situaci bude toto řešení nejvýhodnější (nejrychlejší)?
+
+Při řídce obsazené mřížce - při nízkém poměru počtu bodů/vrcholů k rozměrům
+mřížky. Délka trvání předpočítání je přímo úměrná k počtu bodů
+
+Úloha 4: Grafy škálování všech řešení
+===============================================================================
+
+1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
+
+Octree algoritmus je dle grafů nejefektivější, což podle diskuze s kolegy není
+úplně očekávaný výsledek. Octree ale zato je tak efektivní, že se nevejde na
+graf a pro správné vygenerování grafu bylo potřeba vypnout možnost "sharey" v
+generate_plots.py. I při ručních experimentech byly časy dosti nestabilní, ale
+takový rozdíl jsem nečekal. Bohužel salomon se v posledních dvou hodinách před
+odevzdáním rozhodl mi zamezit přístup (když jsem se pokoušel zprovoznit VNC a
+zřejmě narazil na počet neúspěšných přihlášení), tak grafy nechám takové, jaké jsou.
+
+Cached v porovnání s "loop" není o tolik rychlejší, zato octree předčil očekávání.
+
+2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti
+   mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
+
+Pokud budou málo bodů na velké mřížce, kdy pak octree bude mnohem efektivnější.
+
+3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování
+   vzhledem ke vstupu?
+
+Ano, je.
